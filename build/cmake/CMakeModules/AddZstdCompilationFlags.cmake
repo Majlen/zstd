@@ -81,6 +81,10 @@ MACRO(ADD_ZSTD_COMPILATION_FLAGS)
             STRING(REGEX REPLACE "/MT" "/MD" ${flag_var} "${${flag_var}}")
             STRING(REGEX REPLACE "/O2" "/Ox" ${flag_var} "${${flag_var}}")
         ENDFOREACH (flag_var)
+        FOREACH (flag_var CMAKE_C_FLAGS CMAKE_C_FLAGS_RELEASE CMAKE_C_FLAGS_MINSIZEREL
+                 CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_RELEASE CMAKE_CXX_FLAGS_MINSIZEREL)
+            LIST(REMOVE_AT ${flag_var} "/RTC1")
+        ENDFOREACH (flag_var)
     endif ()
 
 ENDMACRO(ADD_ZSTD_COMPILATION_FLAGS)
